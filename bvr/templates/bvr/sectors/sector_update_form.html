@@ -8,10 +8,8 @@
 
 <div class="container">
     {% if request.user.is_superuser %}
-
-
-
-      <form action="{% url 'bvr:sector-update-form' sector_id=obj.id %}" method="post"
+    
+    <form action="{% url 'bvr:sector-update-form' sector_id=obj.id %}" method="post"
               class="needs-validation"
               novalidate>{% csrf_token %}
         <div class="container my-3">

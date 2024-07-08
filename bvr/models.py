@@ -36,8 +36,7 @@ class ProcurementSector(models.Model):
 
 
 class CustomUser(AbstractUser):
-    sector = models.ForeignKey(ProcurementSector, on_delete=models.CASCADE, verbose_name="Sector", blank=True,
-                               null=True)
+    sector = models.ForeignKey(ProcurementSector, on_delete=models.CASCADE, verbose_name="Sector", blank=True, null=True)
 
     def __str__(self):
         return self.username
