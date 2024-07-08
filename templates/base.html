@@ -1,0 +1,82 @@
+<!doctype html>
+{% load static %}
+<html lang="ru">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'bvr/css/bootstrap_5/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'bvr/css/select2.css' %}"/>
+    <link rel="stylesheet" href="{% static 'bvr/css/fontawesome/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'bvr/css/fontawesome/css/all.css' %}">
+
+    <script src="{% static 'bvr/js/jQuery.js' %}"></script>
+    <script src="{% static 'bvr/js/select2.js' %}"></script>
+    {% block own_css %}{% endblock %}
+    {% block title %}{% endblock %}
+</head>
+<body>
+<form action="{% url 'logout' %}" id="logout_form" method="post">
+    {% csrf_token %}
+</form>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'bvr/img/favicon.ico' %}" alt="" width="24" height="24"
+                 class="d-inline-block align-text-top">
+            ОАО «Белвторресурсы»
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'bvr:users' %}">Пользователи</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'bvr:remains' %}">Остатки</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'bvr:sectors' %}">Участки</a>
+                </li>
+                {% comment %}<li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'applicant:applicant-add-form' %}">Ввод
+                        данных</a>
+                </li>{% endcomment %}
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ user.last_name }} {{ user.first_name }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" onclick="sendLogOut()" style="cursor: pointer">Выход из системы</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% block content %}{% endblock %}
+<script src="{% static 'bvr/js/bootstrap/bootstrap.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('.my-select2').select2();
+    });
+
+    function sendLogOut() {
+        let logoutForm = document.getElementById("logout_form");
+        logoutForm.submit();
+
+    }
+</script>
+{% block own_js %}{% endblock %}
+
+</body>
+</html>

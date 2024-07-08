@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}<title>Остатки</title>{% endblock %}
+{% block content %}
+
+    <div class="container">
+        {% if request.user.is_superuser %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Участок</th>
+                    <th scope="col">Макулатура</th>
+                    <th scope="col">МА</th>
+                    <th scope="col">Стеклобой</th>
+                    <th scope="col">СБ</th>
+                    <th scope="col">Полиэтилен</th>
+                    <th scope="col">ПЛ</th>
+                    <th scope="col">Металлолом</th>
+                    <th scope="col">МЛ</th>
+                    <th scope="col">Дата и время последнего редактирования</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for remain in remains_list %}
+                    <tr>
+                        <td>{{ remain.sector.sector_number }}</td>
+                        <td>{{ remain.wastepaper_count }}</td>
+                        <td>{{ remain.wastepaper_needs_exportation }}</td>
+                        <td>{{ remain.cullet_count }}</td>
+                        <td>{{ remain.cullet_needs_exportation }}</td>
+                        <td>{{ remain.polyethylene_count }}</td>
+                        <td>{{ remain.polyethylene_needs_exportation }}</td>
+                        <td>{{ remain.scrap_metal_count }}</td>
+                        <td>{{ remain.scrap_metal_needs_exportation }}</td>
+                        <td>{{ remain.date_time_updated }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        {% else %}
+            {{ request }}
+            12345678
+            {% if remain_form %}
+                {{ remain_form }}
+            {% else %}
+                Вам не назначен участок. Обратитесь к системному администратору
+            {% endif %}
+
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block own_js %}
+
+{% endblock %}
