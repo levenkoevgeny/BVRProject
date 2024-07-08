@@ -7,7 +7,7 @@
     <div class="container">
 
         {% if request.user.is_superuser %}
-
+        <h3 class="my-3">Остатки</h3>
             <table class="table">
                 <thead>
                 <tr>
@@ -21,6 +21,8 @@
                     <th scope="col">Металлолом</th>
                     <th scope="col">МЛ</th>
                     <th scope="col">Дата и время последнего редактирования</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,6 +39,8 @@
                         <td>{{ remain.scrap_metal_count }}</td>
                         <td>{{ remain.scrap_metal_needs_exportation }}</td>
                         <td>{{ remain.date_time_updated }}</td>
+                         <td><i class="fas fa-edit"></i></td>
+                        <td><i class="fas fa-trash"></i></td>
                     </tr>
                 {% endfor %}
                 </tbody>

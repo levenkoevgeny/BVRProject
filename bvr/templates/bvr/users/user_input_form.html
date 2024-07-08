@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}<title>Новый пользователь</title>{% endblock %}
+{% block content %}
+
+
+    <div class="container">
+        {% if request.user.is_superuser %}
+           <form action="{% url 'bvr:user-update-form' user_id=obj.id %}" method="post"
+              class="needs-validation"
+              novalidate>{% csrf_token %}
+        <div class="container my-3">
+             {% include 'bvr/users/common/input_form.html' %}
+            <div>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </div>
+    </form>
+        {% else %}
+            У Вас недостаточно прав для просмотра этой страницы
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+
+{% block own_js %}
+
+{% endblock %}

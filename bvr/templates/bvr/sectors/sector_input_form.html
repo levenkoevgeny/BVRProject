@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% load static %}
-{% block title %}<title>Участки</title>{% endblock %}
+{% block title %}<title>Новый участок</title>{% endblock %}
 {% block content %}
-
+<div class="container">
+    {% if request.user.is_superuser %}
+       
+    {% else %}
+        У Вас недостаточно прав для просмотра этой страницы
+    {% endif %}
+</div>
 
 {% endblock %}
 

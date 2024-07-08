@@ -6,8 +6,10 @@
 
 
     <div class="container">
-        {% if request.user.is_superuser %}
-            <h3 class="my-3">Пользователи</h3>
+         {% if request.user.is_superuser %}
+         {% if users_list %}
+        <h3 class="my-3">Пользователи</h3>
+        {% include 'bvr/users/common/paginator.html' %}
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
@@ -34,16 +36,36 @@
                         <td>
                             {{ user.first_name|default:"Нет данных" }}
                         </td>
-                        <td>{{ user.is_active }}</td>
-                        <td>{{ user.is_superuser }}</td>
+                        <td>
+                            {% if user.is_active %}
+                            <i class="fas fa-check"></i>
+                            {% else %}{% endif %}
+                        </td>
+                        <td>
+                             {% if user.is_superuser %}
+                            <i class="fas fa-check"></i>
+                            {% else %}{% endif %}
+
+
+
+
+                        </td>
                         <td>{{ user.date_joined }}</td>
                         <td>{{ user.last_login }}</td>
-                        <td>Ред</td>
-                        <td>Удалить</td>
+                        <td><i class="fas fa-edit"></i></td>
+                        <td><i class="fas fa-trash"></i></td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+         {% include 'bvr/users/common/paginator.html' %}
+         {% else %}
+            <p class="fs-5">Записей не найдено</p>
+        {% endif %}
+
+
+
+
         {% else %}
             У Вас недостаточно прав для просмотра этой страницы
         {% endif %}
