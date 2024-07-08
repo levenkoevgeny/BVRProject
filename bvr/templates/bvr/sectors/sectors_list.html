@@ -6,27 +6,34 @@
 
 
     <div class="container">
-
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">№ участка</th>
-                <th scope="col">Адрес участка</th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for sector in sectors_list %}
+        {% if request.user.is_superuser %}
+            <h3 class="my-3">Участки</h3>
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>{{ sector.sector_number }}</td>
-                    <td>{{ sector.sector_address }}</td>
-                    <td></td>
+                    <th scope="col">№ участка</th>
+                    <th scope="col">Адрес участка</th>
+                    <th scope="col">Комментарий</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for sector in sectors_list %}
+                    <tr>
+                        <td>{{ sector.sector_number }}</td>
+                        <td>{{ sector.sector_address }}</td>
+                        <td>{{ sector.comments }}</td>
+                        <td>Ред</td>
+                        <td>Удалить</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            У Вас недостаточно прав для просмотра этой страницы
+        {% endif %}
     </div>
-
 {% endblock %}
 
 {% block own_js %}

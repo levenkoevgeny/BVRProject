@@ -48,9 +48,9 @@
     <meta name="description" content="">
     <title>Вход в систему</title>
 
-    <link rel="stylesheet" href="{% static 'applicant/css/bootstrap_5/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'bvr/css/bootstrap_5/bootstrap.css' %}">
     <!-- Bootstrap core CSS -->
-    <script src="{% static 'applicant/js/bootstrap/bootstrap.js' %}"></script>
+    <script src="{% static 'bvr/js/bootstrap/bootstrap.js' %}"></script>
 
     <!-- Favicons -->
 
@@ -85,7 +85,7 @@
     <form method="post">
         {% csrf_token %}
 
-        <img class="mb-4" src="{% static 'applicant/img/Logo-litseya.jpg' %}" alt="" width="100" height="100">
+{#        <img class="mb-4" src="{% static 'bvr/img/logo-bvr-blue.png' %}" alt="" height="100">#}
         <h1 class="h3 mb-3 fw-normal">Авторизуйтесь</h1>
 
         <div class="form-floating">
@@ -98,10 +98,9 @@
         </div>
 
         <button class="w-100 btn btn-lg btn-primary" type="submit" value="login">Войти в систему</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2024 ООИТ Академии МВД</p>
+        <p class="mt-5 mb-3 text-muted">&copy; 2024 ОАО Белвторресурсы</p>
     </form>
 </main>
-
 
 </body>
 </html>

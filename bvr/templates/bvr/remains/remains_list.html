@@ -5,7 +5,9 @@
 {% block content %}
 
     <div class="container">
+
         {% if request.user.is_superuser %}
+
             <table class="table">
                 <thead>
                 <tr>
@@ -41,14 +43,7 @@
             </table>
 
         {% else %}
-            {{ request }}
-            12345678
-            {% if remain_form %}
-                {{ remain_form }}
-            {% else %}
-                Вам не назначен участок. Обратитесь к системному администратору
-            {% endif %}
-
+            У Вас недостаточно прав для просмотра этой страницы
         {% endif %}
     </div>
 
