@@ -2,38 +2,74 @@
 {% load widget_tweaks %}
 {% load static %}
 {% block title %}<title>Остатки</title>{% endblock %}
+{% block own_css %}
+    <style>
+        .full-td-input {
+            border: 0 !important;
+            border-radius: 0 !important;
+        }
+    </style>
+{% endblock %}
 {% block content %}
 
     <div class="container">
         {% if remain_form %}
 
-            <h3 class="my-3">Дата и время последнего редактирования - {{ last_updated }}</h3>
-            <form>
-                <div class="mb-3">
-                    <label class="form-label">Макулатура (количество, кг)</label>
-                    {% render_field remain_form.wastepaper_count class+="form-control" min=0 %}
-                    {% render_field remain_form.wastepaper_needs_exportation class+="form-check-input" min=0 %}
-                    <label class="form-check-label">Нужен вывоз</label>
+            <div class="shadow p-3 mb-5 mt-3 bg-body rounded">
+                <div class="d-flex flex-column align-items-center justify-content-center">
+                    <h1 class="fw-light fw-bold">ОАО «Белвторресурсы»</h1>
+                    <h3>учет остатков материальных ресурсов на приемно-заготовительных пунктах</h3>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Стеклобой (количество, кг)</label>
-                    {% render_field remain_form.cullet_count class+="form-control" min=0 %}
-                    {% render_field remain_form.cullet_needs_exportation class+="form-check-input" min=0 %}
-                    <label class="form-check-label">Нужен вывоз</label>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Полиэтилен (количество, кг)</label>
-                    {% render_field remain_form.polyethylene_count class+="form-control" min=0 %}
-                    {% render_field remain_form.polyethylene_needs_exportation class+="form-check-input" min=0 %}
-                    <label class="form-check-label">Нужен вывоз</label>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Металлолом (количество, кг)</label>
-                    {% render_field remain_form.scrap_metal_count class+="form-control" min=0 %}
-                    {% render_field remain_form.scrap_metal_needs_exportation class+="form-check-input" min=0 %}
-                    <label class="form-check-label">Нужен вывоз</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+
+                <p class="fs-5">Номер участка - <span class="fs-4">{{ remains.sector.sector_number }}</span></p>
+                <p class="fs-5">Адрес участка - <span class="fs-4">{{ remains.sector.sector_address }}</span></p>
+            </div>
+
+
+            <h3 class="my-3">Дата и время последнего редактирования - {{ remains.date_time_updated }}</h3>
+            <form action="{% url 'bvr:remains-update-form' remain_id=remains.id %}" method="post"
+                  class="needs-validation"
+                  novalidate>{% csrf_token %}
+                <input type="hidden" name="sector" value="{{ remains.sector.id }}">
+                <table class="table table-sm table-bordered table-warning">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="text-center align-middle">Вид ВМР</th>
+                        <th scope="col" class="text-center align-middle">Ед.изм</th>
+                        <th scope="col" class="text-center align-middle">Количество</th>
+                        <th scope="col" class="text-center align-middle">Нужен вывоз</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-center align-middle">Макулатура</td>
+                        <td class="text-center align-middle">кг</td>
+                        <td> {% render_field remain_form.wastepaper_count class+="form-control full-td-input" min=0 %}</td>
+                        <td class="text-center align-middle">{% render_field remain_form.wastepaper_needs_exportation class+="form-check-input" %}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle">Стеклобой</td>
+                        <td class="text-center align-middle">кг</td>
+                        <td> {% render_field remain_form.cullet_count class+="form-control full-td-input" min=0 %}</td>
+                        <td class="text-center align-middle">{% render_field remain_form.cullet_needs_exportation class+="form-check-input" %}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle">Полиэтилен</td>
+                        <td class="text-center align-middle">кг</td>
+                        <td> {% render_field remain_form.polyethylene_count class+="form-control full-td-input" min=0 %}</td>
+                        <td class="text-center align-middle">{% render_field remain_form.polyethylene_needs_exportation class+="form-check-input" %}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle">Металлолом</td>
+                        <td class="text-center align-middle">кг</td>
+                        <td> {% render_field remain_form.scrap_metal_count class+="form-control full-td-input" min=0 %}</td>
+                        <td class="text-center align-middle">{% render_field remain_form.scrap_metal_needs_exportation class+="form-check-input" %}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <button type="submit" class="btn btn-success">Сохранить</button>
+                <div class="mb-4"></div>
             </form>
         {% else %}
             <h1>Вам не назначен участок. Обратитесь к системному администратору</h1>

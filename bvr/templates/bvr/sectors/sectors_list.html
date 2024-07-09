@@ -7,12 +7,29 @@
 
     <div class="container">
         {% if request.user.is_superuser %}
+            <div class="shadow-lg p-3 my-4 bg-body rounded">
+                <h3>
+                    <a class="btn btn-link" data-bs-toggle="collapse" href="#filterCollapse" role="button"
+                       aria-expanded="false"
+                       aria-controls="collapseExample">
+                        Форма поиска
+                    </a>
+                    <a class="btn btn-link" href="{% url 'bvr:sectors' %}">
+                        Сбросить фильтр
+                    </a>
+                </h3>
+                <div class="collapse" id="filterCollapse">
+                    {% include 'bvr/sectors/filter.html' %}
+                </div>
+            </div>
             <h3 class="my-3">Участки</h3>
-            <table class="table">
-                <thead>
+            <p class="fs-5">Найдено записей - <b>{{ filter.qs.count }}</b></p>
+            <table class="table table-hover table-striped">
+                <thead class="table-warning">
                 <tr>
                     <th scope="col">№ участка</th>
                     <th scope="col">Адрес участка</th>
+                    <th scope="col">Район</th>
                     <th scope="col">Комментарий</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
@@ -22,14 +39,16 @@
                 {% for sector in sectors_list %}
                     <tr>
                         <td>{{ sector.sector_number }}</td>
-                        <td>{{ sector.sector_address }}</td>
-                        <td>{{ sector.comments }}</td>
+                        <td>{{ sector.sector_address|default_if_none:"" }}</td>
+                        <td>{{ sector.district|default_if_none:"" }}</td>
+                        <td>{{ sector.comments|default_if_none:"" }}</td>
                         <td><i class="fas fa-edit"></i></td>
                         <td><i class="fas fa-trash"></i></td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+            {% include 'bvr/sectors/common/paginator.html' %}
         {% else %}
             У Вас недостаточно прав для просмотра этой страницы
         {% endif %}

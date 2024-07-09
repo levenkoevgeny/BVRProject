@@ -2,19 +2,20 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-# class District(models.Model):
-#     district_name = models.CharField(max_length=255)
-#
-#     def __str__(self):
-#         return self.district_name
-#
-#     class Meta:
-#         verbose_name = 'Город'
-#         verbose_name_plural = 'Города'
-#         ordering = ("district_name",)
+class District(models.Model):
+    district_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.district_name
+
+    class Meta:
+        verbose_name = 'District'
+        verbose_name_plural = 'Districts'
+        ordering = ("district_name",)
 
 
 class ProcurementSector(models.Model):
+    district = models.ForeignKey(District, on_delete=models.CASCADE, verbose_name="District")
     sector_number = models.CharField(max_length=50, verbose_name="Sector Number")
     sector_address = models.TextField(verbose_name="Sector address", blank=True, null=True)
     comments = models.TextField(verbose_name="Comments", blank=True, null=True)
@@ -36,7 +37,8 @@ class ProcurementSector(models.Model):
 
 
 class CustomUser(AbstractUser):
-    sector = models.ForeignKey(ProcurementSector, on_delete=models.CASCADE, verbose_name="Sector", blank=True, null=True)
+    sector = models.OneToOneField(ProcurementSector, on_delete=models.CASCADE, verbose_name="Sector", blank=True,
+                                  null=True)
 
     def __str__(self):
         return self.username
@@ -68,4 +70,5 @@ class Remains(models.Model):
     class Meta:
         verbose_name = 'Остаток материальных ресурсов'
         verbose_name_plural = 'Остатки материальных ресурсов'
-        ordering = ("sector",)
+        ordering = ("-wastepaper_needs_exportation", "-cullet_needs_exportation", "-polyethylene_needs_exportation",
+                    "-scrap_metal_needs_exportation")

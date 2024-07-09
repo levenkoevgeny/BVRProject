@@ -1,7 +1,7 @@
 import django_filters
 from django import forms
 
-from .models import CustomUser, ProcurementSector, Remains
+from .models import CustomUser, ProcurementSector, Remains, District
 
 myDateInput = forms.DateInput(format=('%Y-%m-%d'), attrs={'type': 'date'})
 
@@ -11,13 +11,17 @@ class CustomUserFilter(django_filters.FilterSet):
     last_name = django_filters.CharFilter(field_name='last_name', lookup_expr='icontains')
     is_active = django_filters.BooleanFilter(field_name='is_active')
     is_superuser = django_filters.BooleanFilter(field_name='is_superuser')
+
     class Meta:
         model = CustomUser
         fields = []
 
 
 class ProcurementSectorFilter(django_filters.FilterSet):
-    pass
+    sector_number = django_filters.CharFilter(field_name='sector_number', lookup_expr='icontains')
+    sector_address = django_filters.CharFilter(field_name='sector_address', lookup_expr='icontains')
+    district = django_filters.ModelMultipleChoiceFilter(field_name='district',
+                                                        queryset=District.objects.all())
 
     class Meta:
         model = ProcurementSector
@@ -25,7 +29,20 @@ class ProcurementSectorFilter(django_filters.FilterSet):
 
 
 class RemainsFilter(django_filters.FilterSet):
-    pass
+    sector = django_filters.ModelMultipleChoiceFilter(field_name='sector',
+                                                      queryset=ProcurementSector.objects.all())
+    wastepaper_count_gte = django_filters.NumberFilter(field_name='wastepaper_count', lookup_expr='gte')
+    wastepaper_count_lte = django_filters.NumberFilter(field_name='wastepaper_count', lookup_expr='lte')
+    cullet_count_gte = django_filters.NumberFilter(field_name='cullet_count', lookup_expr='gte')
+    cullet_count_lte = django_filters.NumberFilter(field_name='cullet_count', lookup_expr='lte')
+    polyethylene_count_gte = django_filters.NumberFilter(field_name='polyethylene_count', lookup_expr='gte')
+    polyethylene_count_lte = django_filters.NumberFilter(field_name='polyethylene_count', lookup_expr='lte')
+    scrap_metal_count_gte = django_filters.NumberFilter(field_name='scrap_metal_count', lookup_expr='gte')
+    scrap_metal_count_lte = django_filters.NumberFilter(field_name='scrap_metal_count', lookup_expr='lte')
+    wastepaper_needs_exportation = django_filters.BooleanFilter(field_name='wastepaper_needs_exportation')
+    cullet_needs_exportation = django_filters.BooleanFilter(field_name='cullet_needs_exportation')
+    polyethylene_needs_exportation = django_filters.BooleanFilter(field_name='polyethylene_needs_exportation')
+    scrap_metal_needs_exportation = django_filters.BooleanFilter(field_name='scrap_metal_needs_exportation')
 
     class Meta:
         model = Remains

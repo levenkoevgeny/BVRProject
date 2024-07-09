@@ -5,6 +5,7 @@ app_name = 'bvr'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('init-db', views.init_db, name='init-db'),
     path('users', views.user_list, name='users'),
     path('users/add', views.user_add, name='user-add-form'),
     path('users/update/<user_id>/', views.user_update, name='user-update-form'),
@@ -15,5 +16,5 @@ urlpatterns = [
 
     path('remains', views.remain_list, name='remains'),
     path('remains/add', views.remain_add, name='remains-add-form'),
-    path('remains/update/<sector_id>/', views.remain_update, name='remains-update-form'),
+    path('remains/update/<remain_id>/', views.remain_update, name='remains-update-form'),
 ]

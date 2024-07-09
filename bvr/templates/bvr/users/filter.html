@@ -1,0 +1,40 @@
+{% load widget_tweaks %}
+{% load static %}
+<div class="card card-body">
+    <form action="{% url 'bvr:users' %}">
+        <div class="shadow p-3 mb-3 bg-body rounded">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label class="form-label">Имя пользователя (содержит)</label>
+                        {% render_field filter.form.username class+="form-control" %}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label class="form-label">Фамилия (содержит)</label>
+                        {% render_field filter.form.last_name class+="form-control" %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label class="form-label">Активный</label>
+                        {% render_field filter.form.is_active class+="form-control" %}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label class="form-label">Суперпользователь</label>
+                        {% render_field filter.form.is_superuser class+="form-control" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-secondary">Поиск</button>
+        <a href="{% url 'bvr:users' %}" class="btn btn-secondary">Сбросить фильтр</a>
+    </form>
+
+</div>

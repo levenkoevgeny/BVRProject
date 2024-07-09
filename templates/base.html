@@ -14,6 +14,15 @@
 
     <script src="{% static 'bvr/js/jQuery.js' %}"></script>
     <script src="{% static 'bvr/js/select2.js' %}"></script>
+
+    <style>
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 2 !important;
+        }
+    </style>
+
     {% block own_css %}{% endblock %}
     {% block title %}{% endblock %}
 </head>
@@ -47,11 +56,6 @@
                     </li>
                 {% endif %}
 
-
-
-
-
-
                 {% comment %}<li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'applicant:applicant-add-form' %}">Ввод
                         данных</a>
@@ -61,7 +65,12 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ user.last_name }} {{ user.first_name }}
+                        {% if user.last_name %}
+                            {{ user.last_name }} {{ user.first_name }}
+                        {% else %}
+                            {{ user.username }}
+                        {% endif %}
+
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" onclick="sendLogOut()" style="cursor: pointer">Выход из системы</a>

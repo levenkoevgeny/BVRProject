@@ -1,51 +1,329 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% load static %}
+{% load url_replace %}
+
 {% block title %}<title>Остатки</title>{% endblock %}
+{% block own_css %}{% endblock %}
 {% block content %}
 
     <div class="container">
-
         {% if request.user.is_superuser %}
-        <h3 class="my-3">Остатки</h3>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Участок</th>
-                    <th scope="col">Макулатура</th>
-                    <th scope="col">МА</th>
-                    <th scope="col">Стеклобой</th>
-                    <th scope="col">СБ</th>
-                    <th scope="col">Полиэтилен</th>
-                    <th scope="col">ПЛ</th>
-                    <th scope="col">Металлолом</th>
-                    <th scope="col">МЛ</th>
-                    <th scope="col">Дата и время последнего редактирования</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="shadow-lg p-3 my-4 bg-body rounded">
+                <h3>
+                    <a class="btn btn-link" data-bs-toggle="collapse" href="#filterCollapse" role="button"
+                       aria-expanded="false"
+                       aria-controls="collapseExample">
+                        Форма поиска
+                    </a>
+                    <a class="btn btn-link" href="{% url 'bvr:remains' %}">
+                        Сбросить фильтр
+                    </a>
+                </h3>
 
-                {% for remain in remains_list %}
+                <div class="collapse" id="filterCollapse">
+                    {% include 'bvr/remains/filter.html' %}
+                </div>
+            </div>
+            {% if remains_list %}
+                <h3 class="my-3">Остатки</h3>
+                <p class="fs-5">Найдено записей - <b>{{ filter.qs.count }}</b></p>
+
+                <table class="table table-striped table-hover">
+                    <thead class="table-warning">
                     <tr>
-                        <td>{{ remain.sector.sector_number }}</td>
-                        <td>{{ remain.wastepaper_count }}</td>
-                        <td>{{ remain.wastepaper_needs_exportation }}</td>
-                        <td>{{ remain.cullet_count }}</td>
-                        <td>{{ remain.cullet_needs_exportation }}</td>
-                        <td>{{ remain.polyethylene_count }}</td>
-                        <td>{{ remain.polyethylene_needs_exportation }}</td>
-                        <td>{{ remain.scrap_metal_count }}</td>
-                        <td>{{ remain.scrap_metal_needs_exportation }}</td>
-                        <td>{{ remain.date_time_updated }}</td>
-                         <td><i class="fas fa-edit"></i></td>
-                        <td><i class="fas fa-trash"></i></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                        <th scope="col" class="text-center align-middle">
+                            <div class="d-flex align-items-center">
+                                Участок
+                                <div class="d-flex flex-column ms-3">
+                                    <a style="font-size: 0px;" href="?{% url_replace request 'o' 'sector' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                        </svg>
+                                    </a>
 
+                                    <a style="font-size: 0px;" href="?{% url_replace request 'o' '-sector' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="text-center align-middle">
+                            <div class="d-flex align-items-center">
+                                Макулатура
+                                <div class="d-flex flex-column ms-3">
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' 'wastepaper_count' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                        </svg>
+                                    </a>
+
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' '-wastepaper_count' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="text-center align-middle">
+                            <div class="d-flex align-items-center">
+                                МА
+                                <div class="d-flex flex-column ms-3">
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' 'wastepaper_needs_exportation' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                        </svg>
+                                    </a>
+
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' '-wastepaper_needs_exportation' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="text-center align-middle">
+                            <div class="d-flex align-items-center">
+                                Стеклобой
+                                <div class="d-flex flex-column ms-3">
+                                    <a style="font-size: 0px;" href="?{% url_replace request 'o' 'cullet_count' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                        </svg>
+                                    </a>
+
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' '-cullet_count' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </th>
+                        <th scope="col" class="text-center align-middle">
+
+                            <div class="d-flex align-items-center">
+                                СБ
+                                <div class="d-flex flex-column ms-3">
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' 'cullet_needs_exportation' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                        </svg>
+                                    </a>
+
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' '-cullet_needs_exportation' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="text-center align-middle">
+
+                            <div class="d-flex align-items-center">
+                                Полиэтилен
+                                <div class="d-flex flex-column ms-3">
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' 'polyethylene_count' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                        </svg>
+                                    </a>
+
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' '-polyethylene_count' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="text-center align-middle">
+                            <div class="d-flex align-items-center">
+                                ПЛ
+                                <div class="d-flex flex-column ms-3">
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' 'polyethylene_needs_exportation' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                        </svg>
+                                    </a>
+
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' '-polyethylene_needs_exportation' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="text-center align-middle">
+                            <div class="d-flex align-items-center">
+                                Металлолом
+                                <div class="d-flex flex-column ms-3">
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' 'scrap_metal_count' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                        </svg>
+                                    </a>
+
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' '-scrap_metal_count' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="text-center align-middle">
+                            <div class="d-flex align-items-center">
+                                МЛ
+                                <div class="d-flex flex-column ms-3">
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' 'scrap_metal_needs_exportation' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                        </svg>
+                                    </a>
+
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' '-scrap_metal_needs_exportation' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="text-center align-middle">
+                            <div class="d-flex align-items-center">
+                                Дата и время последнего редактирования
+                                <div class="d-flex flex-column ms-3">
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' 'date_time_updated' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                        </svg>
+                                    </a>
+
+                                    <a style="font-size: 0px;"
+                                       href="?{% url_replace request 'o' '-date_time_updated' %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="text-center align-middle"></th>
+                        {#                        <th scope="col" class="text-center align-middle"></th>#}
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for remain in remains_list %}
+                        <tr
+                                {% if remain.wastepaper_needs_exportation or remain.cullet_needs_exportation or remain.polyethylene_needs_exportation or remain.scrap_metal_needs_exportation %}
+                                    class="table-danger"
+                                {% endif %}
+
+                        >
+                            <td class="text-center align-middle">{{ remain.sector.sector_number }}</td>
+                            <td class="text-center align-middle">{{ remain.wastepaper_count }}</td>
+                            <td class="text-center align-middle">
+                                {% if remain.wastepaper_needs_exportation %}
+                                    <i class="fas fa-check"></i>
+                                {% else %}{% endif %}
+                            </td>
+                            <td class="text-center align-middle">{{ remain.cullet_count }}</td>
+                            <td class="text-center align-middle">
+                                {% if remain.cullet_needs_exportation %}
+                                    <i class="fas fa-check"></i>
+                                {% else %}{% endif %}
+                            </td>
+                            <td class="text-center align-middle">{{ remain.polyethylene_count }}</td>
+                            <td class="text-center align-middle">
+                                {% if remain.polyethylene_needs_exportation %}
+                                    <i class="fas fa-check"></i>
+                                {% else %}{% endif %}
+                            </td>
+                            <td class="text-center align-middle">{{ remain.scrap_metal_count }}</td>
+                            <td class="text-center align-middle">
+                                {% if remain.scrap_metal_needs_exportation %}
+                                    <i class="fas fa-check"></i>
+                                {% else %}{% endif %}
+                            </td>
+                            <td class="text-center align-middle">{{ remain.date_time_updated }}</td>
+                            <td class="text-center align-middle"><i class="fas fa-edit"></i></td>
+                            {#                            <td class="text-center align-middle"><i class="fas fa-trash"></i></td>#}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+
+                {% include 'bvr/remains/common/paginator.html' %}
+
+            {% else %}
+                <p class="fs-5">Записей не найдено</p>
+            {% endif %}
         {% else %}
             У Вас недостаточно прав для просмотра этой страницы
         {% endif %}
