@@ -17,4 +17,4 @@ class RemainsForm(ModelForm):
 class CustomUserForm(ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['first_name', 'last_name', 'username', 'is_superuser', 'is_active']
+        fields = ['first_name', 'last_name', 'username', 'is_superuser', 'is_active', 'sector']

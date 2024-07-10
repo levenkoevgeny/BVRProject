@@ -16,7 +16,7 @@ class District(models.Model):
 
 class ProcurementSector(models.Model):
     district = models.ForeignKey(District, on_delete=models.CASCADE, verbose_name="District")
-    sector_number = models.CharField(max_length=50, verbose_name="Sector Number")
+    sector_number = models.IntegerField(verbose_name="Sector Number")
     sector_address = models.TextField(verbose_name="Sector address")
     comments = models.TextField(verbose_name="Comments", blank=True, null=True)
 
@@ -28,7 +28,7 @@ class ProcurementSector(models.Model):
             super(ProcurementSector, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.sector_number
+        return str(self.sector_number)
 
     class Meta:
         verbose_name = 'Участок заготовки'
@@ -52,15 +52,15 @@ class CustomUser(AbstractUser):
 class Remains(models.Model):
     sector = models.OneToOneField(ProcurementSector, on_delete=models.CASCADE, verbose_name="Sector", blank=True,
                                   null=True)
-    wastepaper_count = models.IntegerField(verbose_name="Макулатура (количество)", default=0)
+    wastepaper_count = models.IntegerField(verbose_name="Макулатура (количество)", blank=True, null=True)
     wastepaper_needs_exportation = models.BooleanField(verbose_name="Макулатура (нужен вывоз)", default=False)
-    cullet_count = models.IntegerField(verbose_name="Стеклобой (количество)", default=0)
+    cullet_count = models.IntegerField(verbose_name="Стеклобой (количество)", blank=True, null=True)
     cullet_needs_exportation = models.BooleanField(verbose_name="Стеклобой (нужен вывоз)", default=False)
 
-    polyethylene_count = models.IntegerField(verbose_name="Полиэтилен (количество)", default=0)
+    polyethylene_count = models.IntegerField(verbose_name="Полиэтилен (количество)", blank=True, null=True)
     polyethylene_needs_exportation = models.BooleanField(verbose_name="Полиэтилен (нужен вывоз)", default=False)
 
-    scrap_metal_count = models.IntegerField(verbose_name="Металлолом (количество)", default=0)
+    scrap_metal_count = models.IntegerField(verbose_name="Металлолом (количество)", blank=True, null=True)
     scrap_metal_needs_exportation = models.BooleanField(verbose_name="Металлолом (нужен вывоз)", default=False)
     date_time_updated = models.DateTimeField(verbose_name="Дата и время последнего редактирования", auto_now=True)
 

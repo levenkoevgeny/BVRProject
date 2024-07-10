@@ -1,0 +1,71 @@
+{% load widget_tweaks %}
+{% load static %}
+
+<table class="table table-sm table-bordered table-warning">
+    <thead>
+    <tr>
+        <th scope="col" class="text-center align-middle">Остатки ВМР в кг</th>
+        <th scope="col" class="text-center align-middle">Сброс</th>
+        <th scope="col" class="text-center align-middle">Нужен вывоз</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="text-center align-middle fs-5" colspan="3">Макулатура</td>
+    </tr>
+    <tr>
+        <td class="text-center align-middle">{% render_field remain_form.wastepaper_count class+="form-control full-td-input" min=0 %} <div class="invalid-feedback">
+        Не корректное число
+      </div></td>
+
+        <td class="text-center align-middle">
+            <button type="button" class="btn btn-success" onclick="clear_input('id_wastepaper_count', 'id_wastepaper_needs_exportation')"><i class="fas fa-recycle"></i></button>
+        </td>
+        <td class="text-center align-middle">{% render_field remain_form.wastepaper_needs_exportation class+="form-check-input" %}
+        </td>
+    </tr>
+
+    <tr>
+        <td class="text-center align-middle fs-5" colspan="3">Стеклобой</td>
+    </tr>
+    <tr>
+        <td class="text-center align-middle">{% render_field remain_form.cullet_count class+="form-control full-td-input" min=0 %}<div class="invalid-feedback">
+        Не корректное число
+      </div></td>
+        <td class="text-center align-middle">
+            <button type="button" class="btn btn-success" onclick="clear_input('id_cullet_count', 'id_cullet_needs_exportation')"><i class="fas fa-recycle"></i></button>
+
+        </td>
+        <td class="text-center align-middle">{% render_field remain_form.cullet_needs_exportation class+="form-check-input" %}
+        </td>
+    </tr>
+
+    <tr>
+        <td class="text-center align-middle fs-5" colspan="3">Полиэтилен</td>
+    </tr>
+    <tr>
+        <td class="text-center align-middle">{% render_field remain_form.polyethylene_count class+="form-control full-td-input" min=0 %}<div class="invalid-feedback">
+        Не корректное число
+      </div></td>
+        <td class="text-center align-middle">
+            <button type="button" class="btn btn-success" onclick="clear_input('id_polyethylene_count', 'id_polyethylene_needs_exportation')"><i class="fas fa-recycle"></i></button>
+        </td>
+        <td class="text-center align-middle">{% render_field remain_form.polyethylene_needs_exportation class+="form-check-input" %}
+        </td>
+    </tr>
+
+    <tr>
+        <td class="text-center align-middle fs-5" colspan="3">Металлолом</td>
+    </tr>
+    <tr>
+        <td class="text-center align-middle">{% render_field remain_form.scrap_metal_count class+="form-control full-td-input" min=0 %}<div class="invalid-feedback">
+        Не корректное число
+      </div></td>
+        <td class="text-center align-middle">
+            <button type="button" class="btn btn-success" onclick="clear_input('id_scrap_metal_count', 'id_scrap_metal_needs_exportation')"><i class="fas fa-recycle"></i></button>
+        </td>
+        <td class="text-center align-middle">{% render_field remain_form.scrap_metal_needs_exportation class+="form-check-input" %}
+        </td>
+    </tr>
+    </tbody>
+</table>

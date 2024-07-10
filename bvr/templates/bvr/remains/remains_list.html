@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% load static %}
@@ -286,25 +287,25 @@
 
                         >
                             <td class="text-center align-middle">{{ remain.sector.sector_number }}</td>
-                            <td class="text-center align-middle">{{ remain.wastepaper_count }}</td>
+                            <td class="text-center align-middle">{{ remain.wastepaper_count|default_if_none:"0" }}</td>
                             <td class="text-center align-middle">
                                 {% if remain.wastepaper_needs_exportation %}
                                     <i class="fas fa-check"></i>
                                 {% else %}{% endif %}
                             </td>
-                            <td class="text-center align-middle">{{ remain.cullet_count }}</td>
+                            <td class="text-center align-middle">{{ remain.cullet_count|default_if_none:"0" }}</td>
                             <td class="text-center align-middle">
                                 {% if remain.cullet_needs_exportation %}
                                     <i class="fas fa-check"></i>
                                 {% else %}{% endif %}
                             </td>
-                            <td class="text-center align-middle">{{ remain.polyethylene_count }}</td>
+                            <td class="text-center align-middle">{{ remain.polyethylene_count|default_if_none:"0" }}</td>
                             <td class="text-center align-middle">
                                 {% if remain.polyethylene_needs_exportation %}
                                     <i class="fas fa-check"></i>
                                 {% else %}{% endif %}
                             </td>
-                            <td class="text-center align-middle">{{ remain.scrap_metal_count }}</td>
+                            <td class="text-center align-middle">{{ remain.scrap_metal_count|default_if_none:"0" }}</td>
                             <td class="text-center align-middle">
                                 {% if remain.scrap_metal_needs_exportation %}
                                     <i class="fas fa-check"></i>

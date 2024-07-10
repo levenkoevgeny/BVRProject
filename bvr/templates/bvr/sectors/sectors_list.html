@@ -24,6 +24,9 @@
             </div>
             <h3 class="my-3">Участки</h3>
             <p class="fs-5">Найдено записей - <b>{{ filter.qs.count }}</b></p>
+        <div class="d-flex justify-content-end">
+            <a href="{% url 'bvr:sector-add-form' %}" class="btn btn-secondary mb-3">Добавить новый</a>
+        </div>
             <table class="table table-hover table-striped">
                 <thead class="table-warning">
                 <tr>

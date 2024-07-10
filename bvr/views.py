@@ -38,12 +38,6 @@ def init_db(request):
         with open('1.csv') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=';')
             for row in csv_reader:
-                # print(row[0])
-                # print(row[1])
-                # print(row[2])
-                # print(row[3])
-                # print(row[4])
-
                 new_district, created = District.objects.get_or_create(district_name=row[3])
                 print('new_district', new_district)
                 new_sector = ProcurementSector.objects.create(district=new_district, sector_number=row[1],
@@ -168,7 +162,7 @@ def sector_update(request, sector_id):
 def remain_list(request):
     if request.user.is_superuser:
         request.session['back_path'] = '/bvr/remains?' + request.META.get('QUERY_STRING')
-        qs = Remains.objects.all()
+        qs = Remains.objects.filter(sector__customuser__is_active=True)
         if 'o' in request.GET:
             order_query = request.GET['o'].split('.')
             qs = qs.order_by(*order_query)
