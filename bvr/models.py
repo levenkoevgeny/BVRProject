@@ -17,7 +17,7 @@ class District(models.Model):
 class ProcurementSector(models.Model):
     district = models.ForeignKey(District, on_delete=models.CASCADE, verbose_name="District")
     sector_number = models.CharField(max_length=50, verbose_name="Sector Number")
-    sector_address = models.TextField(verbose_name="Sector address", blank=True, null=True)
+    sector_address = models.TextField(verbose_name="Sector address")
     comments = models.TextField(verbose_name="Comments", blank=True, null=True)
 
     def save(self, *args, **kwargs):

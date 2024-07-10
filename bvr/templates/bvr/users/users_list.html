@@ -227,7 +227,7 @@
                             </div>
                         </th>
                         <th scope="col" class="text-center align-middle"></th>
-                        <th scope="col" class="text-center align-middle"></th>
+{#                        <th scope="col" class="text-center align-middle"></th>#}
                     </tr>
                     </thead>
                     <tbody>
@@ -249,8 +249,8 @@
                             </td>
                             <td class="text-center align-middle">{{ user.date_joined|default_if_none:"Нет данных" }}</td>
                             <td class="text-center align-middle">{{ user.last_login|default_if_none:"Нет данных" }}</td>
-                            <td class="text-center align-middle"><i class="fas fa-edit"></i></td>
-                            <td class="text-center align-middle"><i class="fas fa-trash"></i></td>
+                            <td class="text-center align-middle"><a href="{% url 'bvr:user-update-form' user_id=user.id %}"><i class="fas fa-edit"></i></a></td>
+{#                            <td class="text-center align-middle"><i class="fas fa-trash"></i></td>#}
                         </tr>
                     {% endfor %}
                     </tbody>

@@ -32,7 +32,7 @@
                     <th scope="col">Район</th>
                     <th scope="col">Комментарий</th>
                     <th scope="col"></th>
-                    <th scope="col"></th>
+{#                    <th scope="col"></th>#}
                 </tr>
                 </thead>
                 <tbody>
@@ -42,8 +42,8 @@
                         <td>{{ sector.sector_address|default_if_none:"" }}</td>
                         <td>{{ sector.district|default_if_none:"" }}</td>
                         <td>{{ sector.comments|default_if_none:"" }}</td>
-                        <td><i class="fas fa-edit"></i></td>
-                        <td><i class="fas fa-trash"></i></td>
+                        <td><a href="{% url 'bvr:sector-update-form' sector_id=sector.id %}"><i class="fas fa-edit"></i></a></td>
+{#                        <td><i class="fas fa-trash"></i></td>#}
                     </tr>
                 {% endfor %}
                 </tbody>

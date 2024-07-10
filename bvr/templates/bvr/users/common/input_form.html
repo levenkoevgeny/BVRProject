@@ -34,19 +34,26 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="mb-3">
-                    <label class="form-label">Активный</label><br>
-                    {% render_field user_form.is_active class+="form-check-label" %}
+                    <label class="form-label">Участок</label><br>
+                    {% render_field user_form.sector class+="form-select" %}
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="mb-3">
-                    <label class="form-label">Суперпользователь</label><br>
-                    {% render_field user_form.is_superuser class+="form-check-label" %}
+                <div class="form-check">
+                    {% render_field user_form.is_active class+="form-check-input" %}
+                    <label class="form-label">Активный</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-check">
+                    {% render_field user_form.is_superuser class+="form-check-input" %}
+                    <label class="form-label">Суперпользователь</label>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

@@ -3,16 +3,54 @@
 {% load static %}
 {% block title %}<title>Новый участок</title>{% endblock %}
 {% block content %}
-<div class="container">
-    {% if request.user.is_superuser %}
-       
-    {% else %}
-        У Вас недостаточно прав для просмотра этой страницы
-    {% endif %}
-</div>
+    <div class="container">
+        {% if request.user.is_superuser %}
+            <form action="{% url 'bvr:sector-add-form' %}" method="post" class="needs-validation"
+                  novalidate>{% csrf_token %}
+                {% include 'bvr/sectors/common/input_form.html' %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label class="form-label">Пароль для входа</label><br>
+                            <input type="text" class="form-control" name="password" required>
+                            <div class="invalid-feedback">
+                                Поле, обязательно для заполнения!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Создать</button>
+                <div class="mb-4"></div>
+            </form>
+
+        {% else %}
+            У Вас недостаточно прав для просмотра этой страницы
+        {% endif %}
+    </div>
 
 {% endblock %}
 
 {% block own_js %}
+    <script>
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
 
 {% endblock %}

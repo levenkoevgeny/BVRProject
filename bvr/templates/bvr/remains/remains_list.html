@@ -311,7 +311,7 @@
                                 {% else %}{% endif %}
                             </td>
                             <td class="text-center align-middle">{{ remain.date_time_updated }}</td>
-                            <td class="text-center align-middle"><i class="fas fa-edit"></i></td>
+                            <td class="text-center align-middle"><a href="{% url 'bvr:remains-update-form' remain.id %}"><i class="fas fa-edit"></i></a></td>
                             {#                            <td class="text-center align-middle"><i class="fas fa-trash"></i></td>#}
                         </tr>
                     {% endfor %}
