@@ -6,29 +6,29 @@
 
 {% block content %}
 
-<div class="container">
-    {% if request.user.is_superuser %}
-    
-    <form action="{% url 'bvr:sector-update-form' sector_id=obj.id %}" method="post"
-              class="needs-validation"
-              novalidate>{% csrf_token %}
-        <div class="container my-3">
-             {% include 'bvr/sectors/common/input_form.html' %}
-            <div>
-                <button type="submit" class="btn btn-primary">Сохранить</button>
-            </div>
-        </div>
-    </form>
+    <div class="container">
+        {% if request.user.is_superuser %}
+
+            <form action="{% url 'bvr:sector-update-form' sector_id=obj.id %}" method="post"
+                  class="needs-validation"
+                  novalidate>{% csrf_token %}
+                <div class="container my-3">
+                    {% include 'bvr/sectors/common/input_form.html' %}
+                    <div>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </div>
+            </form>
 
 
-    {% else %}
-    У Вас недостаточно прав для
-    просмотра этой страницы
-    {% endif %}
-</div>
+        {% else %}
+            У Вас недостаточно прав для
+            просмотра этой страницы
+        {% endif %}
+    </div>
 {% endblock %}
 {% block own_js %}
-<script>
+    <script>
         (function () {
             'use strict'
 

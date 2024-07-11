@@ -13,7 +13,7 @@
                        aria-controls="collapseExample">
                         Форма поиска
                     </a>
-                     <a class="btn btn-link" href="{% url 'bvr:users' %}">
+                    <a class="btn btn-link" href="{% url 'bvr:users' %}">
                         Сбросить фильтр
                     </a>
                 </h3>
@@ -105,30 +105,30 @@
                                 </div>
                             </div>
                         </th>
-<!--                        <th scope="col" class="text-center align-middle">-->
-<!--                            <div class="d-flex align-items-center">-->
-<!--                                Имя-->
-<!--                                <div class="d-flex flex-column ms-3">-->
-<!--                                    <a style="font-size: 0px;"-->
-<!--                                       href="?{% url_replace request 'o' 'first_name' %}">-->
-<!--                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"-->
-<!--                                             fill="currentColor"-->
-<!--                                             class="bi bi-caret-up-fill" viewBox="0 0 16 16">-->
-<!--                                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>-->
-<!--                                        </svg>-->
-<!--                                    </a>-->
+                        <!--                        <th scope="col" class="text-center align-middle">-->
+                        <!--                            <div class="d-flex align-items-center">-->
+                        <!--                                Имя-->
+                        <!--                                <div class="d-flex flex-column ms-3">-->
+                        <!--                                    <a style="font-size: 0px;"-->
+                        <!--                                       href="?{% url_replace request 'o' 'first_name' %}">-->
+                        <!--                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"-->
+                        <!--                                             fill="currentColor"-->
+                        <!--                                             class="bi bi-caret-up-fill" viewBox="0 0 16 16">-->
+                        <!--                                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>-->
+                        <!--                                        </svg>-->
+                        <!--                                    </a>-->
 
-<!--                                    <a style="font-size: 0px;"-->
-<!--                                       href="?{% url_replace request 'o' '-first_name' %}">-->
-<!--                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"-->
-<!--                                             fill="currentColor"-->
-<!--                                             class="bi bi-caret-down-fill" viewBox="0 0 16 16">-->
-<!--                                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>-->
-<!--                                        </svg>-->
-<!--                                    </a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </th>-->
+                        <!--                                    <a style="font-size: 0px;"-->
+                        <!--                                       href="?{% url_replace request 'o' '-first_name' %}">-->
+                        <!--                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"-->
+                        <!--                                             fill="currentColor"-->
+                        <!--                                             class="bi bi-caret-down-fill" viewBox="0 0 16 16">-->
+                        <!--                                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>-->
+                        <!--                                        </svg>-->
+                        <!--                                    </a>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </th>-->
                         <th scope="col" class="text-center align-middle">
                             <div class="d-flex align-items-center">
                                 Активный
@@ -227,7 +227,7 @@
                             </div>
                         </th>
                         <th scope="col" class="text-center align-middle"></th>
-{#                        <th scope="col" class="text-center align-middle"></th>#}
+                        <th scope="col" class="text-center align-middle"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -236,7 +236,7 @@
                             <td class="text-center align-middle">{{ user.username }}</td>
                             <td class="text-center align-middle">{{ user.sector.sector_number }}</td>
                             <td class="text-center align-middle">{{ user.last_name|default:"" }}</td>
-<!--                            <td class="text-center align-middle">{{ user.first_name|default:"Нет данных" }}</td>-->
+                            <!--                            <td class="text-center align-middle">{{ user.first_name|default:"Нет данных" }}</td>-->
                             <td class="text-center align-middle">
                                 {% if user.is_active %}
                                     <i class="fas fa-check"></i>
@@ -249,8 +249,14 @@
                             </td>
                             <td class="text-center align-middle">{{ user.date_joined|default_if_none:"" }}</td>
                             <td class="text-center align-middle">{{ user.last_login|default_if_none:"" }}</td>
-                            <td class="text-center align-middle"><a href="{% url 'bvr:user-update-form' user_id=user.id %}"><i class="fas fa-edit"></i></a></td>
-{#                            <td class="text-center align-middle"><i class="fas fa-trash"></i></td>#}
+                            <td class="text-center align-middle" title="Сменить пароль"><a
+                                    href="{% url 'bvr:user-change-password' user_id=user.id %}"><i
+                                    class="fas fa-key"></i></a>
+                            </td>
+                            <td class="text-center align-middle" title="Редактировать"><a
+                                    href="{% url 'bvr:user-update-form' user_id=user.id %}"><i class="fas fa-edit"></i></a>
+                            </td>
+
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -263,4 +269,5 @@
         {% endif %}
     </div>
 
-{% endblock %} {% block own_js %} {% endblock %}
+{% endblock %}
+{% block own_js %} {% endblock %}

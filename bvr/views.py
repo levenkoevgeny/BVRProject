@@ -39,7 +39,6 @@ def init_db(request):
             csv_reader = csv.reader(csv_file, delimiter=';')
             for row in csv_reader:
                 new_district, created = District.objects.get_or_create(district_name=row[3])
-                print('new_district', new_district)
                 new_sector = ProcurementSector.objects.create(district=new_district, sector_number=row[1],
                                                               sector_address=row[0])
                 new_user = CustomUser.objects.create_user(row[1], "", row[2])
@@ -84,15 +83,12 @@ def user_list(request):
 def user_update(request, user_id):
     if request.method == 'POST':
         obj = get_object_or_404(CustomUser, pk=user_id)
-        print('obj', obj.username)
-
         form = CustomUserForm(request.POST, instance=obj)
         if form.is_valid():
             form.save()
             back_path = request.session.get('back_path', '/')
             return HttpResponseRedirect(back_path)
         else:
-            print(form.errors)
             return render(request, 'bvr/users/user_update_form.html', {'user_form': form,
                                                                        'obj': obj,
                                                                        })
@@ -101,6 +97,21 @@ def user_update(request, user_id):
         form = CustomUserForm(instance=obj)
         return render(request, 'bvr/users/user_update_form.html', {'user_form': form,
                                                                    'obj': obj})
+
+
+@login_required
+def user_change_password(request, user_id):
+    if request.method == 'POST':
+        user = get_object_or_404(CustomUser, pk=user_id)
+        new_password = request.POST['password']
+        user.set_password(new_password)
+        user.save()
+        back_path = request.session.get('back_path', '/bvr/users')
+        return HttpResponseRedirect(back_path)
+    else:
+        user = get_object_or_404(CustomUser, pk=user_id)
+        return render(request, 'bvr/users/user_change_password_form.html', {
+            'user': user})
 
 
 @login_required

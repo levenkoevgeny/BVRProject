@@ -8,8 +8,15 @@
             <form action="{% url 'bvr:sector-add-form' %}" method="post" class="needs-validation"
                   novalidate>{% csrf_token %}
                 {% include 'bvr/sectors/common/input_form.html' %}
+                <h3>Автоматически будет создан пользователь с учетными данными:</h3>
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Логин (соответствует номеру участка)</label><br>
+                            <input type="text" class="form-control" id="id_username_sector" disabled>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
                         <div class="mb-3">
                             <label class="form-label">Пароль для входа</label><br>
                             <input type="text" class="form-control" name="password" required>
@@ -51,6 +58,13 @@
                     }, false)
                 })
         })()
+
+    </script>
+    <script>
+        $("#id_sector_number").on("change", function () {
+            $("#id_username_sector").val($(this).val());
+
+        });
     </script>
 
 {% endblock %}

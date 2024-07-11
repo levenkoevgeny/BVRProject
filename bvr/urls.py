@@ -9,6 +9,7 @@ urlpatterns = [
     path('users', views.user_list, name='users'),
     # path('users/add', views.user_add, name='user-add-form'),
     path('users/update/<user_id>/', views.user_update, name='user-update-form'),
+    path('users/change-password/<user_id>/', views.user_change_password, name='user-change-password'),
 
     path('sectors', views.sector_list, name='sectors'),
     path('sectors/add', views.sector_add, name='sector-add-form'),

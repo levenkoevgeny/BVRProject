@@ -31,11 +31,11 @@
                   class="needs-validation"
                   novalidate>{% csrf_token %}
                 <input type="hidden" name="sector" value="{{ remains.sector.id }}">
-               {% include 'bvr/remains/common/input_form.html' %}
+                {% include 'bvr/remains/common/input_form.html' %}
 
                 <div class="d-flex flex-column">
                     <button type="submit" class="btn btn-success mb-3">ГОТОВО</button>
-                <button type="button" class="btn btn-secondary" onclick="window.location.reload()">ОТМЕНИТЬ</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.reload()">ОТМЕНИТЬ</button>
                 </div>
 
                 <div class="mb-4"></div>
@@ -48,16 +48,16 @@
 {% endblock %}
 
 {% block own_js %}
-<script>
-    function clear_input(input_id, checkbox_id) {
-    const input = document.getElementById(input_id);
-    const checkbox = document.getElementById(checkbox_id);
-    input.value = "";
-    checkbox.checked = false;
+    <script>
+        function clear_input(input_id, checkbox_id) {
+            const input = document.getElementById(input_id);
+            const checkbox = document.getElementById(checkbox_id);
+            input.value = "";
+            checkbox.checked = false;
 
-    }
-</script>
-<script>
+        }
+    </script>
+    <script>
         (function () {
             'use strict'
 

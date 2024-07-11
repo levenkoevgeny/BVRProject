@@ -23,7 +23,7 @@ class ProcurementSector(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             super(ProcurementSector, self).save(*args, **kwargs)
-            print(Remains.objects.create(sector=self))
+            Remains.objects.create(sector=self)
         else:
             super(ProcurementSector, self).save(*args, **kwargs)
 
@@ -65,7 +65,7 @@ class Remains(models.Model):
     date_time_updated = models.DateTimeField(verbose_name="Дата и время последнего редактирования", auto_now=True)
 
     def __str__(self):
-        return self.sector.sector_number
+        return str(self.sector.sector_number)
 
     class Meta:
         verbose_name = 'Остаток материальных ресурсов'
